@@ -9,8 +9,9 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 
+//include necessary header header files
 int verificareFisier(struct dirent * fisier){
-   
+   //function to verify if file has .c extencion
     if((fisier->d_name[strlen(fisier->d_name)-1] == 'c') && (fisier->d_name[strlen(fisier->d_name) - 2] == '.')) 
         return 1;
     else return 0;
@@ -18,6 +19,7 @@ int verificareFisier(struct dirent * fisier){
 
 int main(int argc, char *argv[])
 {
+  //declare necessary variables and structures
     DIR *dir;             
     struct stat st1;    
     struct dirent *fisier;  
@@ -30,6 +32,7 @@ int main(int argc, char *argv[])
     if (argc != 3) 
         {
             printf("Usage: ./executabil <director> <optiuni>\n"); 
+            //print usage information if arguments are not correct
             return 0;
         }
 
@@ -37,27 +40,26 @@ int main(int argc, char *argv[])
     if (dir == NULL )  
       printf("Eroare deschidere.\n");
 
-
-   // fisier = readdir(dir);                                     
-   // if(fisier == NULL)
-     //   printf("Erore parcurgere fisier!\n");
-
+    //if directory cannot be opened, print an error message
     while((fisier = readdir(dir)) && (fisier != NULL))
      {
        if(verificareFisier(fisier))        
         {
+          // if file has .c extension, perform operations on it
           int pid, status;
           length = strlen(argv[2])-1;
           contor = 1;
-          strcpy(aux,argv[2]);   //parcurgem sirul de optiuni
+          strcpy(aux,argv[2]);   //go through the series of options
           strcpy(path1,argv[1]);
 	        strcat(path1,"/");
 		      strcat(path1,fisier->d_name);
 
           if (strchr(argv[2], 'g') != NULL)
           {
+             // if 'g' option is provided, compile the file using gcc
             if ( (pid = fork()) == 0)
             {
+               // loop through all provided options and perform operations
               strcpy(path2, path1);
               path2[strlen(path2) - 2] = '\0';
               execlp("gcc", "gcc", "-o", path2, path1, NULL);
@@ -66,6 +68,7 @@ int main(int argc, char *argv[])
             pid = wait(&status);
             printf("Procesul cu PID <%d> s-a terminat cu codul <%d>.\n", pid, WEXITSTATUS(status));
           }
+          // wait for child process to finish and print status message
           pid = fork();
           if (pid == 0)
           {
@@ -128,8 +131,10 @@ int main(int argc, char *argv[])
       pid = fork();
       if (pid == 0)
       {
+        // if a child process is created
         if (st1.st_size < 1024 * 100)
         {
+          // if file size is less than 100 KB, create a symbolic link to it
           strcpy(path2, path1);
           path2[strlen(path2) - 2] = '\0';
            unlink(path2);
@@ -137,6 +142,7 @@ int main(int argc, char *argv[])
         }
         exit(0);
       }
+      // wait for child process to finish and print status message
       wait(&status);
       printf("Procesul cu PID <%d> s-a terminat cu codul <%d>.\n", pid, WEXITSTATUS(status));
     }
