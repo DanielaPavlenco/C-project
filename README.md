@@ -1,4 +1,4 @@
-# ** Code Description **
+# **Code Description**
 * This code is written in C language and can be used to perform various operations on files present in a directory.
 The code uses several system libraries such as `stdio.h`, `string.h`, `sys/types.h`, `unistd.h`, `dirent.h`, `sys/stat.h`, `fcntl.h`, `sys/wait.h`, `and stdlib.h`.
 * The code starts by checking if the correct number of arguments are passed in the command line arguments. If not, it will display the correct usage. Then, it opens a directory specified in the command line argument using `opendir()` and checks if it was successfully opened.
