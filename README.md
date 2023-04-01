@@ -14,9 +14,12 @@ The code uses several system libraries such as `stdio.h`, `string.h`, `sys/types
 
 # **How to use**
 * To use this code, follow the steps below:
-1)* Copy the code into a file with the .c extension.
-Compile the code using a C compiler.
-Run the executable file using the command ./executable <directory> <options>.
-Replace <directory> with the path of the directory you want to perform operations on.
-Replace <options> with the options you want to execute. You can pass multiple options as a string, for example: ./executable /home/user/directory ndc.
-The available options are explained above.
+* 1)Copy the code into a file with the .c extension.
+* 2)Compile the code using a C compiler.
+* 3)Run the executable file using the command ./executable <directory> <options>.
+* Replace `<directory>` with the path of the directory you want to perform operations on.
+* Replace `<options>` with the options you want to execute. You can pass multiple options as a string, for example: `./executable /home/user/directory ndc`.
+* The available options are explained above.
+
+# **Note**
+This code has been tested and verified on a Linux system. The behavior on other operating systems may vary.
